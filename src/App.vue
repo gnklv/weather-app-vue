@@ -1,30 +1,49 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <SvgIcons />
+  <WeatherCard />
 </template>
 
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+import SvgIcons from '@/components/ui/svg/SvgIcons.vue';
+import WeatherCard from '@/components/WeatherCard.vue';
+
+export default defineComponent({
+  name: 'App',
+  components: {
+    SvgIcons,
+    WeatherCard,
+  },
+});
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-#nav {
-  padding: 30px;
+body {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  color: #fff;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+h1, p {
+  margin: 0;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #2a329e;
 }
 </style>
