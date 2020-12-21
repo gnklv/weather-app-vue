@@ -1,5 +1,7 @@
 # weather-app-vue
 
+## [Demo](https://gnklv.github.io/weather-app-vue/)
+
 ## Project setup
 ```
 yarn install
@@ -23,6 +25,11 @@ yarn test:unit
 ### Lints and fixes files
 ```
 yarn lint
+```
+
+### Deploy to gh-pages
+```
+yarn deploy
 ```
 
 ### Customize configuration
