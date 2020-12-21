@@ -1,4 +1,4 @@
-import type { Ref } from 'vue';
+import type { Ref, UnwrapRef } from 'vue';
 import { ref, watch } from 'vue';
 
 import { to } from '@/utils';
@@ -21,23 +21,23 @@ function useAsync<T, P>(
     wrappedPromiseFn,
     wrappedParams,
   ];
+  const watchCb = async (
+    [newPromiseFn, newParams]: [AsyncFn<T, P>, P | UnwrapRef<P> | undefined],
+  ) => {
+    const [e, result] = await to(newPromiseFn(newParams));
+    if (e) {
+      state.value = 'error';
+      error.value = e;
+      data.value = undefined;
+    } else if (result) {
+      state.value = 'success';
+      error.value = undefined;
+      data.value = result;
+    }
+  };
   const watchOptions = { immediate: true };
-  watch(
-    watched,
-    async ([newPromiseFn, newParams]) => {
-      const [e, result] = await to(newPromiseFn(newParams));
-      if (e) {
-        state.value = 'error';
-        error.value = e;
-        data.value = undefined;
-      } else if (result) {
-        state.value = 'success';
-        error.value = undefined;
-        data.value = result;
-      }
-    },
-    watchOptions,
-  );
+
+  watch(watched, watchCb, watchOptions);
 
   return { state, data, error };
 }
